@@ -10,79 +10,90 @@ import Debug "mo:base/Debug";
 
 actor funciones {
 
-type ServiceId = Nat32;
-    type Service = {
-        creator: Principal;
-        serviceName: Text;
-        serviceAddress: Text;
-        serviceType: Text;
-        
-
-    };
-
-    stable var serviceId: ServiceId = 0;
-    let serviceList = HashMap.HashMap<Text, Service>(0, Text.equal, Text.hash);
-
-    private func generateServiceId() : ServiceId {
-        serviceId += 1;
-        return serviceId;
-    };
-
-    
-
-   public shared (msg) func createService(serviceName: Text, serviceAddress: Text, serviceType: Text) : async () {
-  let user: Principal = msg.caller;
-  let service = {
-    creator = user;
-    serviceName = serviceName;
-    serviceAddress = serviceAddress;
-    serviceType = serviceType;
-  };
-
-  let serviceId = Nat32.toText(generateServiceId());
-  serviceList.put(serviceId, service);
-  Debug.print("Nuevo servicio agregado! ID: " # serviceId);
-  return ();
+// Define el tipo de datos Servicios
+type Servicios = {
+  TipoServicio: Text;
+  descripcion: Text;
+  ubicacion: Text;  // Agregado el campo de ubicación
+  precio: Int;
 };
 
 
-   
+// Declara una estructura de datos para almacenar servicios
+var servicios = HashMap.HashMap<Text, Servicios>(0, Text.equal, Text.hash);
 
-   public shared (msg) func updateService(id: Text, serviceName: Text, serviceAddress: Text, serviceType: Text) : async Bool {
-  let user: Principal = msg.caller;
-  let service: ?Service = serviceList.get(id);
+// Función para crear un nuevo servicio
+public func crearServicio(
+  tipoServicio: Text,
+  descripcion: Text,
+  ubicacion: Text,
+  precio: Int
+) : async Text {
+  let nuevoServicio : Servicios = {
+    TipoServicio = tipoServicio;
+    descripcion = descripcion;
+    ubicacion = ubicacion;
+    precio = precio;
+  };
+  
+  // Genera una clave única para el servicio (puedes modificar esto según tus necesidades)
+  let clave = tipoServicio;
+  
+  // Almacena el servicio en la estructura de datos
+  servicios.put(clave, nuevoServicio);
+  
+  return "Servicio agregado correctamente";
+};
 
-  switch (service) {
+// Función para modificar un servicio existente
+public func modificarServicio(
+  tipoServicio: Text,
+  nuevaDescripcion: Text,
+  nuevaUbicacion: Text,
+  nuevoPrecio: Int
+) : async Text {
+  let servicioExistente : ?Servicios = servicios.get(tipoServicio);
+  
+  switch (servicioExistente) {
     case (null) {
-      return false;
+      // El servicio no existe, devuelve un mensaje de error
+      return "Servicio no encontrado. No se puede modificar.";
     };
-    case (?currentService) {
-      let newService: Service = {
-        creator = user;
-        serviceName = serviceName;
-        serviceAddress = serviceAddress;
-        serviceType = serviceType;
+    case (?servicio) {
+      // El servicio existe, actualiza sus propiedades
+      let servicioActualizado : Servicios = {
+        TipoServicio = tipoServicio;
+        descripcion = nuevaDescripcion;
+        ubicacion = nuevaUbicacion;
+        precio = nuevoPrecio;
       };
-      serviceList.put(id, newService);
-      Debug.print("Actualizacion de servicio con ID: " # id);
-      return true;
+      
+      // Almacena el servicio actualizado
+      servicios.put(tipoServicio, servicioActualizado);
+      
+      return "Servicio modificado correctamente";
     };
   };
 };
 
-    public func deleteService(id: Text) : async Bool {
-        let service: ?Service = serviceList.get(id);
-        switch (service) {
-            case (null) {
-                return false;
-            };
-            case (_) {
-                ignore serviceList.remove(id);
-                Debug.print("Servicio eliminado con  ID: " # id);
-                return true;
-            };
-        };
+// Función para eliminar un servicio
+public func eliminarServicio(tipoServicio: Text) : async Text {
+  let servicioExistente : ?Servicios = servicios.get(tipoServicio);
+  
+  switch (servicioExistente) {
+    case (null) {
+      // El servicio no existe, devuelve un mensaje de error
+      return "Servicio no encontrado. No se puede eliminar.";
     };
+    case (?_) {
+      // El servicio existe, elimínalo
+      servicios.delete(tipoServicio);
+      return "Servicio eliminado correctamente";
+    };
+  };
+};
+
+
         
 }
 
