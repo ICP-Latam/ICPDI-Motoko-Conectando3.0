@@ -5,6 +5,19 @@
       "type": "motoko"
     }
   },
+  "conectando_frontend": {
+    "dependencies": [
+      "conectando_backend"
+    ],
+    "frontend": {
+      "entrypoint": "src/conectando_frontend/src/index.html"
+    },
+    "source": [
+      "src/conectando_frontend/assets",
+      "dist/conectando_frontend/"
+    ],
+    "type": "assets"
+  },
   "defaults": {
     "build": {
       "args": "",
