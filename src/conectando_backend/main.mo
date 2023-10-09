@@ -3,12 +3,15 @@ import Nat "mo:base/Nat";
 import Iter "mo:base/Iter";
 import Nat32 "mo:base/Nat32";
 import Text "mo:base/Text";
+import Array "mo:base/Array";
+import D "mo:base/Debug";
+import Int "mo:base/Int";
 import Principal "mo:base/Principal";
 import Debug "mo:base/Debug";
 
-//
-
 actor funciones {
+
+//SERVICIOS
 
 // Define el tipo de datos Servicios
 type Servicios = {
@@ -21,6 +24,8 @@ type Servicios = {
 
 // Declara una estructura de datos para almacenar servicios
 var servicios = HashMap.HashMap<Text, Servicios>(0, Text.equal, Text.hash);
+
+
 
 // Función para crear un nuevo servicio
 public func crearServicio(
@@ -92,6 +97,68 @@ public func eliminarServicio(tipoServicio: Text) : async Text {
     };
   };
 };
+
+//*********************************************************************//
+//USUARIOS
+
+// Define el tipo de datos Servicios
+type Usuarios = {
+  nombre: Text;
+  apellidoP: Text;
+  apellidoM: Text;
+  telefono: Int;
+  email: Text;
+  ubicacion: Text; 
+   // Agregado el campo de ubicación
+  //identidad: Principal;
+};
+
+type Index = Nat;
+var index: Index = 0;
+// Declara una estructura de datos para almacenar usuarios
+let usuario = HashMap.HashMap<Text, Usuarios>(0, Text.equal, Text.hash);
+
+private func generateIUser() : Nat {
+    index += 1;
+    return index;
+  };
+
+  public func crearUsuario(
+  nombre: Text,
+  apellidoP: Text,
+  apellidoM: Text, 
+  telefono: Int,
+  email: Text,
+  ubicacion: Text
+   ) : async Text {
+    let nuevoUsuario : Usuarios = {
+      nombre = nombre; 
+      apellidoP = apellidoP; 
+      apellidoM = apellidoM; 
+      telefono = telefono; 
+      email = email;
+      ubicacion = ubicacion;
+
+      };
+
+    let clave = Nat.toText(generateIUser());
+
+    usuario.put(clave, nuevoUsuario);
+    //identidad: Principal; // Identidad de Internet Identity
+    return "Usuario agregado correctamente";
+  };
+
+   public query func buscarUsuarios () : async [(Text, Usuarios)]{
+    let userIter : Iter.Iter<(Text, Usuarios)> = usuario.entries();
+    let userArray : [(Text, Usuarios)] = Iter.toArray(userIter);
+    return userArray;
+
+  };
+
+  public query func buscarUsuariosID (id: Text) : async ?Usuarios {
+    let user: ?Usuarios = usuario.get(id);
+    return user;
+  };
 
 
         
