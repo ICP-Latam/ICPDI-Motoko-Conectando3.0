@@ -21,6 +21,11 @@ type Servicios = {
   precio: Int;
 };
 
+private func generateIEvent() : Nat {
+    index += 1;
+    return index;
+  };
+
 
 // Declara una estructura de datos para almacenar servicios
 var servicios = HashMap.HashMap<Text, Servicios>(0, Text.equal, Text.hash);
@@ -98,6 +103,19 @@ public func eliminarServicio(tipoServicio: Text) : async Text {
   };
 };
 
+public query func buscarEventos () : async [(Text, Servicios)]{
+    let eventIter : Iter.Iter<(Text, Servicios)> = servicios.entries();
+    let eventArray : [(Text, Servicios)] = Iter.toArray(eventIter);
+    return eventArray;
+
+  };
+
+  public query func buscarEventosid (id: Text) : async ?Servicios {
+    let event: ?Servicios = servicios.get(id);
+    return event;
+  };
+
+
 //*********************************************************************//
 //USUARIOS
 
@@ -159,6 +177,56 @@ private func generateIUser() : Nat {
     let user: ?Usuarios = usuario.get(id);
     return user;
   };
+
+  public func actualizarUsuario (id:Text, index:Nat, nombre:Text, apellidoP:Text, apellidoM:Text, telefono:Int, email:Text, ubicacion:Text) : async Bool {
+    let user: ?Usuarios= usuario.get(id);
+
+    switch (user) {
+      case (null) {
+        return false;
+      };
+      case (?currentuser) {
+        let user: Usuarios= {nombre = nombre; apellidoP = apellidoP; apellidoM = apellidoM; telefono = telefono; email=email; ubicacion=ubicacion;  };
+        usuario.put(id,user);
+
+        return true;
+      };
+    };
+
+  };
+
+  //
+
+  // Función para eliminar un servicio
+public func eliminarUusuario(id: Text) : async Text {
+  let userExt : ?Usuarios = usuario.get(id);
+  
+  switch (userExt) {
+    case (null) {
+      // El servicio no existe, devuelve un mensaje de error
+      return "Usuario no encontrado, no se puede eliminar.";
+    };
+    case (?_) {
+      // El servicio existe, elimínalo
+      servicios.delete(id);
+      return "Servicio eliminado correctamente";
+    };
+  };
+};
+
+  public func verificarUsuario(id:Text) : async Text {
+    let user: ?Usuarios = usuario.get(id);
+    if (user != null) {
+      return "Cuenta de usuario verificada";
+    } else {
+      return "ERROR: Cuenta de usuario no verificada";
+    }
+  };
+
+  ///Funciones 
+
+
+
 
 
         
