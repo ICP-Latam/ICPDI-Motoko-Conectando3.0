@@ -209,7 +209,7 @@ public func eliminarUusuario(id: Text) : async Text {
     case (?_) {
       // El servicio existe, elimínalo
       servicios.delete(id);
-      return "Servicio eliminado correctamente";
+      return "Usuario eliminado correctamente";
     };
   };
 };
