@@ -225,10 +225,35 @@ public func eliminarUusuario(id: Text) : async Text {
 
   ///Funciones 
 
+  public func autorizarServicio(id:Text):async Text {
+    let serv: ?Servicios = servicios.get(id);
+    if (serv != null) {
+      return "Servicio autorizado con exito";
+    } else {
+      return "Servicio no autorizado";
+    }
+  };
 
+  public func programarFechaServicio(id:Text):async Text {
+    let serv: ?Servicios = servicios.get(id);
+    if (serv != null) {
+      return "Evento calendarizado";
+    } else {
+      return "Evento no existente";
+    }
 
+  };
 
+  
+public func pagoServicio(id:Text):async Text {
+    let serv: ?Servicios = servicios.get(id);
+    if (serv != null) {
+      return "Pago realizado correctamente";
+    } else {
+      return "Pago no realizado por indice invalido";
+    }
+  };
 
-        
 }
+
 
