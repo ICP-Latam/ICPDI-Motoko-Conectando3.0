@@ -103,16 +103,16 @@ public func eliminarServicio(tipoServicio: Text) : async Text {
   };
 };
 
-public query func buscarEventos () : async [(Text, Servicios)]{
-    let eventIter : Iter.Iter<(Text, Servicios)> = servicios.entries();
-    let eventArray : [(Text, Servicios)] = Iter.toArray(eventIter);
-    return eventArray;
+public query func buscarServicios () : async [(Text, Servicios)]{
+    let servIter : Iter.Iter<(Text, Servicios)> = servicios.entries();
+    let servArray : [(Text, Servicios)] = Iter.toArray(servIter);
+    return servArray;
 
   };
 
-  public query func buscarEventosid (id: Text) : async ?Servicios {
-    let event: ?Servicios = servicios.get(id);
-    return event;
+  public query func buscarServiciosID (id: Text) : async ?Servicios {
+    let serv: ?Servicios = servicios.get(id);
+    return serv;
   };
 
 
@@ -228,7 +228,7 @@ public func eliminarUusuario(id: Text) : async Text {
   public func autorizarServicio(id:Text):async Text {
     let serv: ?Servicios = servicios.get(id);
     if (serv != null) {
-      return "Servicio autorizado con exito";
+      return "Servicio autorizado con éxito";
     } else {
       return "Servicio no autorizado";
     }
@@ -237,9 +237,9 @@ public func eliminarUusuario(id: Text) : async Text {
   public func programarFechaServicio(id:Text):async Text {
     let serv: ?Servicios = servicios.get(id);
     if (serv != null) {
-      return "Evento calendarizado";
+      return "Servicio programado";
     } else {
-      return "Evento no existente";
+      return "Servicio no existente";
     }
 
   };
@@ -248,9 +248,9 @@ public func eliminarUusuario(id: Text) : async Text {
 public func pagoServicio(id:Text):async Text {
     let serv: ?Servicios = servicios.get(id);
     if (serv != null) {
-      return "Pago realizado correctamente";
+      return "Pago realizado con éxito";
     } else {
-      return "Pago no realizado por indice invalido";
+      return "Pago no realizado ";
     }
   };
 
