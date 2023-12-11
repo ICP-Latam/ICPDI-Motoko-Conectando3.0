@@ -1,0 +1,141 @@
+/* ConnectComponent.css */
+.connect-container {
+    text-align: center; /* Alinea el contenido al centro */
+  }
+  
+  .connect-title {
+    color: #333; /* Cambia el color del título según tu preferencia */
+  }
+  
+  .connect-description {
+    color: #f2ecec; /* Cambia el color del texto según tu preferencia */
+  }
+  
+  .connect-button {
+    background-color: #4caf50; /* Cambia el color de fondo del botón según tu preferencia */
+    color: white; /* Cambia el color del texto del botón según tu preferencia */
+    padding: 10px 20px; /* Añade relleno alrededor del texto del botón */
+    margin: 5px; /* Añade margen entre los botones */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  }
+  .connect-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px; /* Añade un margen superior para separar de la descripción */
+  }
+  
+  .connect-button:hover {
+    background-color: #45a049; /* Cambia el color de fondo al pasar el mouse sobre el botón */
+  }
+  
+
+  /* InsertarServicio.css */
+
+.insertar-servicio-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .insertar-servicio-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .insertar-servicio-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .insertar-servicio-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  
+  .insertar-servicio-form button {
+    background-color: #7DDE92;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .insertar-servicio-form button:hover {
+    background-color: #7DDE92;
+  }
+  
+
+  
+  /* EstiloComponentes.css */
+
+.registro-usuario-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .registro-usuario-title {
+    text-align: center;
+    color: #333;
+  }
+  
+  .registro-usuario-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .registro-usuario-form label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .registro-usuario-form input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #888;
+    border-radius: 3px;
+  }
+  
+  .registro-usuario-form button {
+    background-color: #00796b;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .registro-usuario-form button:hover {
+    background-color: #004d40;
+  }
+  
+
+  /* EstiloComponentes.css */
+
+.encabezado-container {
+    text-align: left;
+    padding: 30px;
+    background-color: #2196f3; /* Color de fondo */
+    color: #fff; /* Color del texto */
+  }
+  
+  .encabezado-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
